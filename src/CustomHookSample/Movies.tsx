@@ -1,5 +1,16 @@
+// Movies.tsx
+
 import styled from 'styled-components';
 import List from './List';
+
+interface ListProps {
+  name: 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
+  text:
+    | '박스 오피스 순위'
+    | 'Top 인기 작품'
+    | '평균 별점이 높은 작품'
+    | '출시 예정작';
+}
 
 const categories = [
   {
@@ -18,7 +29,7 @@ const categories = [
     name: 'upcoming',
     text: '출시 예정작',
   },
-];
+] as ListProps[];
 
 const Movies = () => {
   return (
