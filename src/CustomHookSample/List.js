@@ -1,29 +1,30 @@
-// List.tsx
-
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Content from './Content';
-import { getMovieList } from './Api';
+import { viewMovieList } from './Api';
 
-interface ListProps {
-  option: 'now_playing' | 'popular' | 'top_rated' | 'upcoming';
-  listText?: string;
-}
+const List = ({ option, listText }) => {
+  const [movies, setMovies] = useState();
 
-const List = ({ option, listText }: ListProps) => {
-  const [movies, setMovies] = useState<[]>();
-
-  const fetchData = async ({ option }: ListProps) => {
-    setMovies(await getMovieList({ option }));
+  const fetchData = async (option) => {
+    setMovies(await viewMovieList({ option }));
   };
 
   useEffect(() => {
-    fetchData({ option });
+    fetchData(option);
   }, [option]);
 
   return (
     <>
-      <ListText>{listText}</ListText>
+      <ListText
+        style={{
+          paddingLeft: '8px',
+          marginTop: '48px',
+          marginBottom: '2px',
+        }}
+      >
+        {listText}
+      </ListText>
       <ListBlock>
         {movies &&
           movies.map((movie, index) => (

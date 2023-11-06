@@ -1,13 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-interface axiosRequest {
-  url: string;
-}
-
-const useAxios = ({ url }: axiosRequest) => {
-  const [data, setData] = useState<[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+const useAxios = ({ url }) => {
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
