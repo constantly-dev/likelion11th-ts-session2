@@ -1,18 +1,17 @@
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Content from './Content';
-import { viewMovieList } from './Api';
+import { GetMovies } from './type/MovieType';
+import useAxios from './Hooks/useHooks';
 
-const List = ({ option, listText }) => {
-  const [movies, setMovies] = useState();
+interface CategoryProps {
+  option: string;
+  listText: string;
+}
 
-  const fetchData = async (option) => {
-    setMovies(await viewMovieList({ option }));
-  };
-
-  useEffect(() => {
-    fetchData(option);
-  }, [option]);
+const List = ({ option, listText }: CategoryProps) => {
+  const { data, loading } = useAxios<GetMovies>({
+    url: `https://api.themoviedb.org/3/movie/${option}?language=en-US&page=1`,
+  });
 
   return (
     <>
@@ -26,8 +25,8 @@ const List = ({ option, listText }) => {
         {listText}
       </ListText>
       <ListBlock>
-        {movies &&
-          movies.map((movie, index) => (
+        {data &&
+          data.results.map((movie, index) => (
             <Content key={index} content={movie} rank={index} />
           ))}
       </ListBlock>

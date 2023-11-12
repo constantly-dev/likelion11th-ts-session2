@@ -1,40 +1,34 @@
 import styled from 'styled-components';
+import { Movie } from './type/MovieType';
 
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
 
-const Content = ({ content, rank }) => {
+interface ContentProps {
+  content: Movie;
+  rank: number;
+}
+const Content = ({ content, rank }: ContentProps) => {
   const {
     title,
     release_date,
     original_language,
     vote_average,
     poster_path,
-    first_air_date,
-    name,
+    // first_air_date,
+    // name,
   } = content;
 
   return (
     <ContentBlock>
       <ThumbNail>
         <Rank>{rank + 1}</Rank>
-        <img
-          src={poster_path && IMAGE_URL + poster_path}
-          alt={title || name}
-        ></img>
+        <img src={poster_path && IMAGE_URL + poster_path} alt={title} />
       </ThumbNail>
       <Contents>
-        {title && <h4>{title}</h4>}
-        {name && <h4>{name}</h4>}
-        {release_date && (
-          <p>
-            {release_date.substr(0, 4)} ・ {original_language}
-          </p>
-        )}
-        {first_air_date && (
-          <p>
-            {first_air_date.substr(0, 4)} ・ {original_language}
-          </p>
-        )}
+        <h4>{title}</h4>
+        <p>
+          {release_date.substr(0, 4)} ・ {original_language}
+        </p>
         <Average>평균★ {vote_average}</Average>
       </Contents>
     </ContentBlock>

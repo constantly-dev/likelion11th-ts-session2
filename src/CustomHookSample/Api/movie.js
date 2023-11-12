@@ -11,6 +11,8 @@ export const viewMovieList = async ({ option }) => {
         },
       }
     );
+    console.log('이거', res.data.results);
+
     return res.data.results;
   } catch (e) {
     if (e instanceof Error) {
